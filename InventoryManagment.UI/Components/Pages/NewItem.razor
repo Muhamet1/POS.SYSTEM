@@ -1,0 +1,50 @@
+﻿@page "/create-item"
+@using Core.Interfaces
+@inject IItemService ItemService
+@inject NavigationManager NavigationManager
+@using Microsoft.AspNetCore.Components.Forms
+@rendermode InteractiveServer
+
+<PageTitle>Create Item</PageTitle>
+
+<h3>Create a New Item</h3>
+
+<EditForm Model="newItem" OnValidSubmit="AddItem">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <InputText id="name" class="form-control" @bind-Value="newItem.Name" />
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <InputText id="description" class="form-control" @bind-Value="newItem.Description" />
+    </div>
+    <div class="form-group">
+        <label for="description">Quantity:</label>
+        <InputNumber id="description" class="form-control" @bind-Value="newItem.Quantity" />
+    </div>
+    <div class="form-group">
+        <label for="description">PurchasePrice:</label>
+        <InputNumber id="description" class="form-control" @bind-Value="newItem.PurchasePrice" />
+    </div>
+    <div class="form-group">
+        <label for="description">SellingPrice:</label>
+        <InputNumber id="description" class="form-control" @bind-Value="newItem.SellingPrice" />
+    </div>
+    <div class="form-group">
+        <label for="description">ExpirationDate:</label>
+        <InputDate id="description" class="form-control" @bind-Value="newItem.ExpirationDate" />
+    </div>
+    <div class="form-group">
+        <label for="description">CategoryId:</label>
+        <InputNumber id="description" class="form-control" @bind-Value="newItem.CategoryId" />
+    </div>
+    <div class="form-group">
+        <label for="description">CategoryId:</label>
+        <InputText id="description" class="form-control" @bind-Value="newItem.ImageUrl" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create Item</button>
+</EditForm>

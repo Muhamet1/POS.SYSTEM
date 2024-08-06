@@ -1,0 +1,55 @@
+﻿@page "/OrderList"
+
+@using Core.Interfaces
+@inject IOrderService IOrderService
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<PageTitle>OrderList</PageTitle>
+<div class="container">
+    <!-- Product Cards Column -->
+    <div class="row g-2 card-container">
+        <div class="container">
+            <h1>Orders</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Order Name</th>
+                        <th>Description</th>
+                        <th>Total</th>
+                        <th>Item Name</th>
+                        <th>Table Number</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (orders != null)
+                    {
+                        foreach (var order in orders)
+                        {
+                            <tr>
+                                <td>@order.Id</td>
+                                <td>@order.OrderName</td>
+                                <td>@order.OrderDescription</td>
+                                <td>@order.Total</td>
+                                <td>@order.ItemName</td>
+                                <td>@order.TableNumber</td>
+                                <td>
+                                    <button class="btn-outline-dark">Edit</button>
+                                    <button class="btn-outline-danger" @onclick="()=>DeleteOrder(order.Id)">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">No orders available.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

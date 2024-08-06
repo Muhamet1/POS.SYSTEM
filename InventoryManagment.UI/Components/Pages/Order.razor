@@ -1,0 +1,101 @@
+﻿@using Core.Interfaces
+@using Blazored.Toast.Services
+@page "/Orders/{TableId:int}"
+@inject IItemService IItemService
+@inject ICategoryService ICategoryService
+@inject IOrderService IOrderService
+@inject IToastService ToastServices
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+<div class="container">
+    <NavLink class="btn btn-primary btn-sm" href="/create-item">Create</NavLink>
+    <div class="category-bar col-lg-8">
+        <nav class="d-flex">
+            @foreach (var category in categories)
+            {
+                <div class="nav-item">
+                    <NavLink class="nav-link btn" Match="NavLinkMatch.All" @onclick="()=> FilterByCategory(category.Id)">
+                        @category.Name
+                    </NavLink>
+                </div>
+            }
+            <div class="nav-item">
+                <NavLink class="nav-link text-danger btn" Match="NavLinkMatch.All" @onclick="GetItems">
+                    X Remove Filters
+                </NavLink>
+            </div>
+        </nav>
+    </div>
+
+    <div class="row">
+        <!-- Product Cards Column -->
+        <div class="col-lg-8">
+            <div class="row g-2 card-container">
+                @foreach (var Item in items)
+                {
+                    <div class="col-6 col-md-4 col-lg-3">
+                        <div class="card item-card">
+                            <img src="@Item.ImageUrl" class="card-img-top" alt="@Item.Name" />
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">@Item.Name</h5>
+                                <p class="card-text">@Item.Description</p>
+                                <p class="card-text"> @Item.SellingPrice €</p>
+                            </div>
+                            <button class="btn btn-primary btn-lg" @onclick="() => AddItemToCheckout(Item)">Add Item</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Checkout Form Column -->
+        <div class="col-lg-4">
+            <div class="checkout-form p-4 border rounded card shadow-sm">
+                <h3 class="mb-4">Checkout</h3>
+                @foreach (var item in checkoutItems)
+                {
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-3">
+                            <img src="@item.ImageUrl" class="img-fluid checkout-item-image" alt="@item.Name" />
+                        </div>
+                        <div class="col-6">
+                            <p class="mb-0">@item.CounterSameItem X - @item.Name</p>
+                            <span class="fw-bold">@item.Total_By_Item €</span>
+                        </div>
+                        <div class="col-3">
+                            <div class="btn-group" role="group" aria-label="Item quantity controls">
+                                <button class="btn btn-sm btn-outline-success" @onclick="() => IncrementItem(item)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary" @onclick="() => DecrementItem(item)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" @onclick="() => DeleteItemFromCheckout(item)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col">
+                        <div class="card p-3 shadow-sm">
+                            <h5 class="card-title mb-4">Summary</h5>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span>Total:</span>
+                                <span class="fw-bold">@Total.ToString("F1") €</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Total TVSH:</span>
+                                <span class="fw-bold">@Total_TVSH.ToString("F1") €</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" @onclick="SubmitOrder" class="btn btn-primary w-100">Submit Order</button>
+            </div>
+        </div>
+    </div>
+</div>

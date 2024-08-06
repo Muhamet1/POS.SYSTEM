@@ -1,0 +1,52 @@
+﻿@page "/ReservationList"
+@using Core.Interfaces
+@inject IReservationService IReservationService
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<PageTitle>Reservation List</PageTitle>
+<div class="container">
+    <!-- Product Cards Column -->
+    <div class="row g-2 card-container">
+        <div class="container">
+            <h1>Reservations</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Reservation Id</th>
+                        <th>ReservationName</th>
+                        <th>TableId</th>
+                        <th>StartTime</th>
+                        <th>EndTime</th>
+                        <th>Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (reservations != null)
+                    {
+                        foreach (var reservation in reservations)
+                        {
+                            <tr>
+                                <td>@reservation.Id</td>
+                                <td>@reservation.ReservationName</td>
+                                <td>@reservation.TableId</td>
+                                <td>@reservation.StartTime</td>
+                                <td>@reservation.EndTime</td>
+                                <td>
+                                    <button class="btn-outline-dark">Edit</button>
+                                    <button class="btn-outline-danger" @onclick="()=>DeleteReservation(reservation.Id)">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">No orders available.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
