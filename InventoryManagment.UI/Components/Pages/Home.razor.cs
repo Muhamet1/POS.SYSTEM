@@ -38,11 +38,10 @@ namespace InventoryManagment.UI.Components.Pages
         }
 
         // Method to handle modal close
-        private Task HandleCloseModal()
+        private async Task HandleCloseModal()
         {
             modalVisible = false;
-            StateHasChanged();
-            return Task.CompletedTask;
+            tables = await ITableService.GetAllTables();
         }
 
     }
