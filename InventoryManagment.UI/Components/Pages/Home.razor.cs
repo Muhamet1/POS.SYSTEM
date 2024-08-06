@@ -41,6 +41,7 @@ namespace InventoryManagment.UI.Components.Pages
         private Task HandleCloseModal()
         {
             modalVisible = false;
+            StateHasChanged();
             return Task.CompletedTask;
         }
 

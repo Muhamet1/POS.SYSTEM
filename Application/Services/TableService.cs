@@ -34,7 +34,7 @@ namespace Application.Services
                 {
                     var startTime = findReservationTables.StartTime ?? null;
                     var endTime = findReservationTables.EndTime ?? null;
-                    dto.ReservationInfo = "Reserved today from " + startTime.Value.ToString("HH:mm") + " to " + endTime.Value.ToString("HH:mm");
+                    dto.ReservationInfo = "Reserved from " + startTime.Value.ToString("HH:mm") + " to " + endTime.Value.ToString("HH:mm");
                     dto.ReservationStartTime = findReservationTables.StartTime;
                     dto.ReservationEndTime = findReservationTables.EndTime;
                 }
