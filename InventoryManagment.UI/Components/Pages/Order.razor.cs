@@ -88,12 +88,15 @@ namespace InventoryManagment.UI.Components.Pages
         }
         public async void SubmitOrder()
         {
-            foreach (var item in checkoutItems)
+            if (checkoutItems.Count > 0)
             {
-                await IOrderService.CreateOrder(TableId, item.Id, Total);
+                foreach (var item in checkoutItems)
+                {
+                    await IOrderService.CreateOrder(TableId, item.Id, Total);
+                }
+                ToastServices.ShowSuccess("Order submitted successfully");
+                NavigationManager.NavigateTo("/");
             }
-            ToastServices.ShowSuccess("Order submitted successfully");
-            NavigationManager.NavigateTo("/");
         }
         public void IncrementItem(ItemDTO item)
         {

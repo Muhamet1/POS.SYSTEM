@@ -8,43 +8,49 @@
 <PageTitle>Create Item</PageTitle>
 
 <h3>Create a New Item</h3>
-
-<EditForm Model="newItem" OnValidSubmit="AddItem">
+<EditForm Model="newItem" OnValidSubmit="AddItem" class="needs-validation">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <div class="form-group">
         <label for="name">Name:</label>
-        <InputText id="name" class="form-control" @bind-Value="newItem.Name" />
+        <InputText id="name" class="form-control" @bind-Value="newItem.Name" required />
     </div>
 
     <div class="form-group">
         <label for="description">Description:</label>
-        <InputText id="description" class="form-control" @bind-Value="newItem.Description" />
+        <InputText id="description" class="form-control" @bind-Value="newItem.Description" required />
     </div>
+
     <div class="form-group">
-        <label for="description">Quantity:</label>
-        <InputNumber id="description" class="form-control" @bind-Value="newItem.Quantity" />
+        <label for="quantity">Quantity:</label>
+        <InputNumber id="quantity" class="form-control" @bind-Value="newItem.Quantity" />
     </div>
+
     <div class="form-group">
-        <label for="description">PurchasePrice:</label>
-        <InputNumber id="description" class="form-control" @bind-Value="newItem.PurchasePrice" />
+        <label for="purchasePrice">Purchase Price:</label>
+        <InputNumber id="purchasePrice" class="form-control" @bind-Value="newItem.PurchasePrice" step="0.01" />
     </div>
+
     <div class="form-group">
-        <label for="description">SellingPrice:</label>
-        <InputNumber id="description" class="form-control" @bind-Value="newItem.SellingPrice" />
+        <label for="sellingPrice">Selling Price:</label>
+        <InputNumber id="sellingPrice" class="form-control" @bind-Value="newItem.SellingPrice" step="0.01" />
     </div>
+
     <div class="form-group">
-        <label for="description">ExpirationDate:</label>
-        <InputDate id="description" class="form-control" @bind-Value="newItem.ExpirationDate" />
+        <label for="expirationDate">Expiration Date:</label>
+        <InputDate id="expirationDate" class="form-control" @bind-Value="newItem.ExpirationDate" />
     </div>
+
     <div class="form-group">
-        <label for="description">CategoryId:</label>
-        <InputNumber id="description" class="form-control" @bind-Value="newItem.CategoryId" />
+        <label for="categoryId">Category ID:</label>
+        <InputNumber id="categoryId" class="form-control" @bind-Value="newItem.CategoryId" />
     </div>
+
     <div class="form-group">
-        <label for="description">CategoryId:</label>
-        <InputText id="description" class="form-control" @bind-Value="newItem.ImageUrl" />
+        <label for="imageUrl">Image URL:</label>
+        <InputText id="imageUrl" class="form-control" @bind-Value="newItem.ImageUrl" />
     </div>
+
     <button type="submit" class="btn btn-primary">Create Item</button>
 </EditForm>
