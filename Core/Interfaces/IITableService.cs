@@ -14,5 +14,7 @@ namespace Core.Interfaces
         Task<List<Table>> GetAvailableTables();
         Task<bool> AddTable(Table table);
         Task<bool> RemoveTable(int tableId);
+        Task<bool> ChangeTableStatus(int tableId);
+        Task<OrderDTO?> GetOrderByTableId(int tableId);
     }
 }

@@ -31,6 +31,10 @@ namespace InventoryManagment.UI.Components.Pages
         {
             NavigationManager.NavigateTo($"Orders/{id}");
         }
+        private void NavigateToOrderDetails(int id)
+        {
+            NavigationManager.NavigateTo($"Orderdetail/{id}");
+        }
         private void ShowReservationModal(int tableId)
         {
             selectedTableId = tableId;

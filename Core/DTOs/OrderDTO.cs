@@ -13,7 +13,7 @@ namespace Core.DTOs
         public string? OrderName { get; set; }
         public string? OrderDescription { get; set; }
         public double Total { get; set; }
-        public string ItemName { get; set; }
+        public List<Item>? Items { get; set; }
         public int TableNumber { get; set; }
     }
 }

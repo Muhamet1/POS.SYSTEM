@@ -33,7 +33,19 @@
                                 <td>@order.OrderName</td>
                                 <td>@order.OrderDescription</td>
                                 <td>@order.Total</td>
-                                <td>@order.ItemName</td>
+                                <td>
+                                    @if (order.Items != null && order.Items.Any())
+                                    {
+                                        @foreach (var item in order.Items)
+                                        {
+                                            <p>@item.Name, </p>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>No items</p>
+                                    }
+                                </td>
                                 <td>@order.TableNumber</td>
                                 <td>
                                     <button class="btn-outline-dark">Edit</button>

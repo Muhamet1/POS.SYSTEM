@@ -1,0 +1,57 @@
+﻿@page "/Orderdetail/{id:int}"
+@using System.Threading.Tasks
+@using Core.Interfaces
+@inject IITableService ITableService
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<div class="container">
+    <h3 class="mt-4">Order Details</h3>
+    <div class="card mt-4">
+        <div class="card-body">
+            @if (orderDto == null)
+            {
+                <p>Loading...</p>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        @if (showSuccess)
+                        {
+                            <div class="alert alert-success" role="alert">
+                                Order finished successfully!
+                            </div>
+                        }
+                        @if (orderDto.Items != null && orderDto.Items.Any())
+                        {
+                            <p><strong>Table Items: </strong></p>
+                            @foreach (var item in orderDto.Items)
+                            {
+                                <p class="fw-bold">@item.Name</p>
+                                <div class="col-1">
+                                    <img src="@item.ImageUrl" class="img-fluid checkout-item-image" alt="@item.Name" />
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>No items</p>
+                        }
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Table Number:</strong> @orderDto.TableNumber</p>
+                        <p><strong>Order Name:</strong> @orderDto.OrderName</p>
+                        <p><strong>Order Description:</strong> @orderDto.OrderDescription</p>
+                        <p><strong>Total:</strong> @orderDto.Total</p>
+
+                        <div>
+                            <button class="btn btn-primary" @onclick="FinishOrder">Finish Order</button>
+                            <button class="btn btn-secondary" @onclick="Cancel">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

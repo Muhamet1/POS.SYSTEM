@@ -24,9 +24,9 @@ namespace Application.Services
             foreach (var order in result)
             {
                 var dto = new OrderDTO();
-                var findItemName = _context.Items.Where(x => x.Id == order.ItemId).Select(x=>x.Name).FirstOrDefault();
+                var findItemName = _context.Items.Where(x => x.Id == order.ItemId).ToList();
                 var findTableNumber = _context.Tables.Where(x=>x.Id == order.TableId).Select(x=>x.Number).FirstOrDefault();
-                dto.ItemName = findItemName;
+                dto.Items = findItemName;
                 dto.TableNumber = findTableNumber;
                 dto.OrderName = order.OrderName;
                 dto.OrderDescription = order.OrderDescription; 
@@ -36,14 +36,28 @@ namespace Application.Services
             }
             return newDto;  
         }
-        public async Task<Order> GetOrder(int id)
+        public async Task<OrderDTO> GetOrder(int id)
         {
-            return await _context.Orders.Where(x => x.Id == id).FirstAsync();
+            var order = await _context.Orders.Where(x => x.Id == id).FirstAsync();
+            var dto = new OrderDTO();
+            var findItemName = _context.Items.Where(x => x.Id == order.ItemId).ToList();
+            var findTableNumber = _context.Tables.Where(x => x.Id == order.TableId).Select(x => x.Number).FirstOrDefault();
+            dto.Items = findItemName;
+            dto.TableNumber = findTableNumber;
+            dto.OrderName = order.OrderName;
+            dto.OrderDescription = order.OrderDescription;
+            dto.Id = order.Id;
+            dto.Total = order.Total;
+            
+            return dto;
         }
         public async Task<bool> CreateOrder(int tableId, int itemId, double total)
         {
             var newOrder = new Order { ItemId = itemId, TableId = tableId, OrderName = "order", OrderDescription = "desc", Total = total };
             await _context.Orders.AddAsync(newOrder);
+            var findTable = _context.Tables.Where(x=>x.Id == tableId).FirstOrDefault();
+            findTable.Status = Core.Enums.TableTypes.Busy;
+            _context.Tables.Update(findTable);
             await _context.SaveChangesAsync();
             return true;
         }

@@ -64,7 +64,7 @@ namespace InventoryManagment.UI.Components.Pages
                 }
             }
             item.Total_By_Item =Math.Round(item.CounterSameItem * item.SellingPrice,1);
-            Total_TVSH = (decimal)Math.Round((Total + (Total * 0.17)), 1);
+            Total_TVSH = (decimal)Math.Round((Total - (Total * 0.17)), 1);
         }
         public async void DeleteItemFromCheckout(ItemDTO item)
         {
@@ -82,7 +82,7 @@ namespace InventoryManagment.UI.Components.Pages
                 }
             }
             item.CounterSameItem = 1;
-            Total_TVSH = (decimal)Math.Round((Total + (Total * 0.17)), 1);
+            Total_TVSH = (decimal)Math.Round((Total - (Total * 0.17)), 1);
             await OnInitializedAsync();
             StateHasChanged();
         }
@@ -114,7 +114,7 @@ namespace InventoryManagment.UI.Components.Pages
                 }
             }
             item.Total_By_Item = Math.Round(item.CounterSameItem * item.SellingPrice, 1);
-            Total_TVSH = (decimal)Math.Round((Total + (Total * 0.17)), 1);
+            Total_TVSH = (decimal)Math.Round((Total - (Total * 0.17)), 1);
         }
         public void DecrementItem(ItemDTO item)
         {
@@ -132,7 +132,7 @@ namespace InventoryManagment.UI.Components.Pages
                 }
             }
             item.Total_By_Item = Math.Round(item.CounterSameItem * item.SellingPrice, 1);
-            Total_TVSH = (decimal)Math.Round((Total + (Total * 0.17)),1);
+            Total_TVSH = (decimal)Math.Round((Total - (Total * 0.17)),1);
         }
     }
 }

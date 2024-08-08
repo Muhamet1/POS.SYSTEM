@@ -9,6 +9,7 @@ namespace Core.Enums
     public enum TableTypes
     {
         Avaiable = 0 ,
-        Reserved =1
+        Reserved =1,
+        Busy
     }
 }

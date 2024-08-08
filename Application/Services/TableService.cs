@@ -64,5 +64,36 @@ namespace Application.Services
             }
             return false;
         }
+        public async Task<bool> ChangeTableStatus(int tableId)
+        {
+            var findTable = await _context.Tables.FirstOrDefaultAsync(x => x.Id == tableId);
+            if (findTable != null)
+            {
+                findTable.Status = Core.Enums.TableTypes.Avaiable;
+                _context.Tables.Update(findTable);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+        public async Task<OrderDTO?> GetOrderByTableId(int tableId)
+        {
+            var findOrderByTableId = _context.Orders.Where(x => x.TableId == tableId).OrderByDescending(x=>x.Id).FirstOrDefault();
+            if (findOrderByTableId != null)
+            {
+                var dto = new OrderDTO();
+                var findItemName = _context.Orders.Where(x => x.TableId == findOrderByTableId.TableId && x.Total == findOrderByTableId.Total).Select(x=>x.Item).ToList();
+                var findTableNumber = _context.Tables.Where(x => x.Id == findOrderByTableId.TableId).Select(x => x.Number).FirstOrDefault();
+                dto.Items = findItemName;
+                dto.TableNumber = findTableNumber;
+                dto.OrderName = findOrderByTableId.OrderName;
+                dto.OrderDescription = findOrderByTableId.OrderDescription;
+                dto.Id = findOrderByTableId.Id;
+                dto.Total = findOrderByTableId.Total;
+
+                return dto;
+            }
+            return null;
+        }
     }
 }
